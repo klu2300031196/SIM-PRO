@@ -10,136 +10,42 @@
       background: linear-gradient(135deg, #1abc9c, #3498db);
       color: #fff;
     }
-    header {
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
-      text-align: center;
+    header { background: rgba(0,0,0,0.6); padding: 20px; text-align: center; }
+    nav { background: rgba(0,0,0,0.4); padding: 10px; text-align: center; }
+    nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    .container { display: flex; flex-wrap: wrap; justify-content: center; margin: 20px; }
+    .stage {
+      background: #fff; color: #2c3e50; margin: 15px; padding: 20px;
+      border-radius: 10px; width: 250px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-    nav {
-      background: rgba(0,0,0,0.4);
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 20px;
-    }
-    .stage, .team {
-      background: #fff;
-      color: #2c3e50;
-      margin: 15px;
-      padding: 20px;
-      border-radius: 10px;
-      width: 250px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-    }
-    .stage:hover, .team:hover { transform: scale(1.05); }
     button {
-      padding: 8px 15px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      background: #3498db;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
+      padding: 8px 15px; margin-top: 10px; border: none; border-radius: 5px;
+      background: #3498db; color: white; font-weight: bold; cursor: pointer;
     }
     button:hover { background: #2980b9; }
     #log {
-      margin: 30px auto;
-      padding: 15px;
-      background: #fff;
-      color: #2c3e50;
-      border-radius: 10px;
-      max-width: 700px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      margin: 20px auto; padding: 15px; background: #fff; color: #2c3e50;
+      border-radius: 10px; max-width: 700px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-    .success { color: green; }
-    .error { color: red; }
-    .progress-bar {
-      height: 15px;
-      background: #ccc;
-      border-radius: 5px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-    .progress {
-      height: 100%;
-      width: 0%;
-      background: #27ae60;
-      transition: width 1s;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-    .completed { background: #2ecc71; color: white; }
-    .pending { background: #e67e22; color: white; }
-    footer {
-      background: rgba(0,0,0,0.6);
-      text-align: center;
-      padding: 15px;
-      margin-top: 20px;
-    }
-    canvas { margin-top: 20px; }
+    .success { color: green; } .error { color: red; }
+    .progress-bar { height: 15px; background: #ccc; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+    .progress { height: 100%; width: 0%; background: #27ae60; transition: width 1s; }
   </style>
 </head>
 <body>
   <header>
     <h1>DevOps Continuous Testing Framework</h1>
-    <p>Mini Project: Conditional CI/CD Pipeline + Team Dashboard</p>
+    <p>Conditional CI/CD Pipeline Execution</p>
   </header>
 
   <nav>
     <a href="#pipeline">Pipeline</a>
-    <a href="#team">Team</a>
     <a href="#log">Logs</a>
   </nav>
 
   <!-- Pipeline Stages -->
   <div class="container" id="pipeline">
-    <div class="stage"><h3>1. Developer Commit</h3>
-      <button onclick="runStage('Code committed to GitHub ✅', true, 'commit')">Run</button>
-    </div>
-    <div class="stage"><h3>2. GitHub Actions</h3>
-      <button onclick="runStage('GitHub Actions triggered ✅', true, 'github')">Run</button>
-    </div>
-    <div class="stage"><h3>3. Jenkins Build</h3>
-      <button onclick="runStage('Jenkins build failed ❌', false, 'jenkins')">Run Error</button>
-      <button onclick="runStage('Jenkins build successful ✅', true, 'jenkins')">Run Success</button>
-    </div>
-    <div class="stage"><h3>4. Automated Testing</h3>
-      <button onclick="runStage('All test cases passed ✅', true, 'testing')">Run Success</button>
-      <button onclick="runStage('Test case failed ❌', false, 'testing')">Run Error</button>
-    </div>
-    <div class="stage"><h3>5. Deployment</h3>
-      <button onclick="runStage('Deployment to Kubernetes cluster ✅', true, 'deploy')">Run</button>
-    </div>
-    <div class="stage"><h3>6. Monitoring</h3>
-      <button onclick="runStage('Prometheus & Grafana monitoring active ✅', true, 'monitor')">Run</button>
-    </div>
-  </div>
-
-  <!-- Team Dashboard -->
-  <div class="team" id="team">
-    <h3>Team Contributions</h3>
-    <p>Prasuna – Team Lead <span id="lead" class="badge pending">Pending</span></p>
-    <p>Member 2 – Algorithm <span id="algo" class="badge pending">Pending</span></p>
-    <p>Member 3 – Testing <span id="test" class="badge pending">Pending</span></p>
-    <p>Member 4 – Deployment & Monitoring <span id="deploy" class="badge pending">Pending</span></p>
-    <button onclick="updateTeam()">Mark All Completed</button>
+    <div class="stage"><h3>1. Developer Commit</h3><button onclick="runPipeline()">Run Pipeline</button></div>
   </div>
 
   <!-- Log + Progress -->
@@ -149,36 +55,15 @@
     <div class="progress-bar"><div id="progress" class="progress"></div></div>
   </div>
 
-  <canvas id="teamChart" width="400" height="200"></canvas>
-
-  <footer>
-    <p>© 2026 KL University | Project Coordinator: P. Anusha</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     let progress = 0;
-    let jenkinsSuccess = false;
 
-    function runStage(message, success, stage) {
+    function logMessage(message, success) {
       const logList = document.getElementById("logList");
       const li = document.createElement("li");
-
-      // Conditional logic: If Jenkins fails, block later stages
-      if(stage !== "commit" && stage !== "github" && !jenkinsSuccess) {
-        li.textContent = "❌ Cannot run " + stage + " because Jenkins failed!";
-        li.className = "error";
-        logList.appendChild(li);
-        return;
-      }
-
       li.textContent = message;
       li.className = success ? "success" : "error";
       logList.appendChild(li);
-
-      if(stage === "jenkins") {
-        jenkinsSuccess = success; // store Jenkins status
-      }
 
       if(success) {
         progress += 20;
@@ -187,27 +72,29 @@
       }
     }
 
-    function updateTeam() {
-      ["lead","algo","test","deploy"].forEach(id=>{
-        document.getElementById(id).className="badge completed";
-        document.getElementById(id).textContent="Completed";
-      });
-      updateChart();
-    }
+    function runPipeline() {
+      // Step 1: Commit
+      logMessage("Code committed to GitHub ✅", true);
 
-    function updateChart() {
-      const ctx = document.getElementById('teamChart').getContext('2d');
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Prasuna (Lead)','Member 2','Member 3','Member 4'],
-          datasets: [{
-            label: 'Task Status',
-            data: [1,1,1,1],
-            backgroundColor: '#2ecc71'
-          }]
-        }
-      });
+      // Step 2: GitHub Actions
+      logMessage("GitHub Actions triggered ✅", true);
+
+      // Step 3: Jenkins Build
+      let jenkinsSuccess = true; // change to false to simulate failure
+      if(jenkinsSuccess) {
+        logMessage("Jenkins build successful ✅", true);
+
+        // Step 4: Testing
+        logMessage("All test cases passed ✅", true);
+
+        // Step 5: Deployment
+        logMessage("Deployment to Kubernetes cluster ✅", true);
+
+        // Step 6: Monitoring
+        logMessage("Prometheus & Grafana monitoring active ✅", true);
+      } else {
+        logMessage("Jenkins build failed ❌ → Pipeline stopped!", false);
+      }
     }
   </script>
 </body>
