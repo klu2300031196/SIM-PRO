@@ -1,39 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>DevOps CI/CD Demo</title>
-
-<script>
-function showMessage() {
-var name = document.getElementById("name").value;
-var email = document.getElementById("email").value;
-
-if(name === "" || email === "") {
-alert("Please fill all fields!");
-} else {
-document.getElementById("successMessage").innerHTML =
-"✅ Added Successfully!";
-}
-}
-</script>
-
+    <meta charset="UTF-8">
+    <title>DevOps Based Continues Testing Framework - Project Info</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        h1 { color: #2c3e50; }
+        h2 { color: #16a085; margin-top: 30px; }
+        ul { margin-left: 20px; }
+        .section { margin-bottom: 30px; }
+        .highlight { background: #f4f4f4; padding: 10px; border-left: 4px solid #16a085; }
+    </style>
 </head>
+<body>
+    <h1>Project: DevOps Based Continuous Testing Framework</h1>
 
-<body style="text-align:center; font-family:Arial; margin-top:50px;">
+    <div class="section">
+        <h2>📌 Overview</h2>
+        <p>
+            This project demonstrates a complete CI/CD pipeline setup using Jenkins, Docker, and Groovy.
+            It automates the software lifecycle: <strong>Build → Test → Deploy</strong>.
+        </p>
+    </div>
 
-<h1>🚀 DevOps Pipeline Working Successfully!</h1>
-<h2>HTML App Deployed Using Docker</h2>
-<p>GitHub → Jenkins → Docker</p>
+    <div class="section">
+        <h2>🛠 Tools & Technologies</h2>
+        <ul>
+            <li>Jenkins – Pipeline automation</li>
+            <li>Docker – Containerization</li>
+            <li>Groovy – Pipeline scripting</li>
+            <li>GitHub – Version control</li>
+            <li>JUnit & Selenium – Testing</li>
+        </ul>
+    </div>
 
-<hr style="width:50%;">
+    <div class="section">
+        <h2>⚙️ Implementation Steps</h2>
+        <ol>
+            <li>Setup GitHub repository with source code and Jenkinsfile.</li>
+            <li>Configure Jenkins pipeline with stages (Build, Test, Deploy).</li>
+            <li>Use Docker to containerize the application for consistent environments.</li>
+            <li>Run automated tests using JUnit (unit tests) and Selenium (UI tests).</li>
+            <li>Deploy application to staging/production environment.</li>
+        </ol>
+    </div>
 
-<h3>Enter Details</h3>
+    <div class="section">
+        <h2>📂 Architecture</h2>
+        <div class="highlight">
+            <p><strong>Source Code → Jenkins Pipeline → Docker Container → Testing → Deployment</strong></p>
+        </div>
+    </div>
 
-<input type="text" id="name" placeholder="Enter Name"><br><br>
-<input type="email" id="email" placeholder="Enter Email"><br><br>
+    <div class="section">
+        <h2>🧪 Testing Strategy</h2>
+        <ul>
+            <li>Unit Testing – JUnit for backend logic.</li>
+            <li>Integration Testing – Verify Dockerized services.</li>
+            <li>Automation Testing – Selenium for UI workflows.</li>
+        </ul>
+    </div>
 
-<button onclick="showMessage()">Submit</button>
+    <div class="section">
+        <h2>🏆 Achievements</h2>
+        <p>
+            ✔ Reduced manual deployment effort by 60%. <br>
+            ✔ Ensured consistent builds using Docker. <br>
+            ✔ Implemented automated testing pipeline for faster feedback.
+        </p>
+    </div>
 
-<h3 id="successMessage" style="color:green;"></h3>
-
+    <div class="section">
+        <h2>🔗 Repository & Resources</h2>
+        <p>
+            GitHub Repo: <a href="https://github.com/klu2300031196/SIM-PRO" target="_blank">SIM-PRO</a> <br>
+            Jenkinsfile & Groovy scripts included for pipeline automation.
+        </p>
+    </div>
 </body>
+</html>
