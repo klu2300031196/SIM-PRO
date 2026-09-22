@@ -15,7 +15,6 @@
       padding: 20px;
       text-align: center;
     }
-    header h1 { margin: 0; }
     nav {
       background: rgba(0,0,0,0.4);
       padding: 10px;
@@ -100,7 +99,7 @@
 <body>
   <header>
     <h1>DevOps Continuous Testing Framework</h1>
-    <p>Mini Project: CI/CD Pipeline + Team Dashboard + Charts</p>
+    <p>Mini Project: Conditional CI/CD Pipeline + Team Dashboard</p>
   </header>
 
   <nav>
@@ -109,31 +108,41 @@
     <a href="#log">Logs</a>
   </nav>
 
+  <!-- Pipeline Stages -->
   <div class="container" id="pipeline">
-    <div class="stage"><h3>1. Developer Commit</h3><button onclick="runStage('Code committed to GitHub ✅', true)">Run</button></div>
-    <div class="stage"><h3>2. GitHub Actions</h3><button onclick="runStage('GitHub Actions triggered ✅', true)">Run</button></div>
+    <div class="stage"><h3>1. Developer Commit</h3>
+      <button onclick="runStage('Code committed to GitHub ✅', true, 'commit')">Run</button>
+    </div>
+    <div class="stage"><h3>2. GitHub Actions</h3>
+      <button onclick="runStage('GitHub Actions triggered ✅', true, 'github')">Run</button>
+    </div>
     <div class="stage"><h3>3. Jenkins Build</h3>
-      <button onclick="runStage('Jenkins build failed ❌', false)">Run Error</button>
-      <button onclick="runStage('Jenkins build successful ✅', true)">Run Success</button>
+      <button onclick="runStage('Jenkins build failed ❌', false, 'jenkins')">Run Error</button>
+      <button onclick="runStage('Jenkins build successful ✅', true, 'jenkins')">Run Success</button>
     </div>
     <div class="stage"><h3>4. Automated Testing</h3>
-      <button onclick="runStage('Test case failed ❌', false)">Run Error</button>
-      <button onclick="runStage('All test cases passed ✅', true)">Run Success</button>
+      <button onclick="runStage('All test cases passed ✅', true, 'testing')">Run Success</button>
+      <button onclick="runStage('Test case failed ❌', false, 'testing')">Run Error</button>
     </div>
-    <div class="stage"><h3>5. Deployment</h3><button onclick="runStage('Deployment to Kubernetes cluster ✅', true)">Run</button></div>
-    <div class="stage"><h3>6. Monitoring</h3><button onclick="runStage('Prometheus & Grafana monitoring active ✅', true)">Run</button></div>
+    <div class="stage"><h3>5. Deployment</h3>
+      <button onclick="runStage('Deployment to Kubernetes cluster ✅', true, 'deploy')">Run</button>
+    </div>
+    <div class="stage"><h3>6. Monitoring</h3>
+      <button onclick="runStage('Prometheus & Grafana monitoring active ✅', true, 'monitor')">Run</button>
+    </div>
   </div>
 
+  <!-- Team Dashboard -->
   <div class="team" id="team">
     <h3>Team Contributions</h3>
-    <p>Prasuna – Architecture <span id="arch" class="badge pending">Pending</span></p>
+    <p>Prasuna – Team Lead <span id="lead" class="badge pending">Pending</span></p>
     <p>Member 2 – Algorithm <span id="algo" class="badge pending">Pending</span></p>
     <p>Member 3 – Testing <span id="test" class="badge pending">Pending</span></p>
-    <p>Member 4 – Deployment <span id="deploy" class="badge pending">Pending</span></p>
-    <p>Member 5 – Monitoring <span id="monitor" class="badge pending">Pending</span></p>
+    <p>Member 4 – Deployment & Monitoring <span id="deploy" class="badge pending">Pending</span></p>
     <button onclick="updateTeam()">Mark All Completed</button>
   </div>
 
+  <!-- Log + Progress -->
   <div id="log">
     <h3>Pipeline Log</h3>
     <ul id="logList"></ul>
@@ -149,12 +158,27 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     let progress = 0;
-    function runStage(message, success) {
+    let jenkinsSuccess = false;
+
+    function runStage(message, success, stage) {
       const logList = document.getElementById("logList");
       const li = document.createElement("li");
+
+      // Conditional logic: If Jenkins fails, block later stages
+      if(stage !== "commit" && stage !== "github" && !jenkinsSuccess) {
+        li.textContent = "❌ Cannot run " + stage + " because Jenkins failed!";
+        li.className = "error";
+        logList.appendChild(li);
+        return;
+      }
+
       li.textContent = message;
       li.className = success ? "success" : "error";
       logList.appendChild(li);
+
+      if(stage === "jenkins") {
+        jenkinsSuccess = success; // store Jenkins status
+      }
 
       if(success) {
         progress += 20;
@@ -164,7 +188,7 @@
     }
 
     function updateTeam() {
-      ["arch","algo","test","deploy","monitor"].forEach(id=>{
+      ["lead","algo","test","deploy"].forEach(id=>{
         document.getElementById(id).className="badge completed";
         document.getElementById(id).textContent="Completed";
       });
@@ -176,10 +200,10 @@
       new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Prasuna','Member 2','Member 3','Member 4','Member 5'],
+          labels: ['Prasuna (Lead)','Member 2','Member 3','Member 4'],
           datasets: [{
             label: 'Task Status',
-            data: [1,1,1,1,1],
+            data: [1,1,1,1],
             backgroundColor: '#2ecc71'
           }]
         }
