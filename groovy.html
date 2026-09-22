@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DevOps Pipeline Advanced Simulator</title>
+  <title>DevOps Pipeline Simulator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f9;
+      background: #eef2f7;
       text-align: center;
       padding: 20px;
     }
-    h1 { color: #2c3e50; }
-    .stage, .team {
+    h1 {
+      color: #2c3e50;
+    }
+    .stage {
       display: inline-block;
       margin: 15px;
       padding: 20px;
       border-radius: 8px;
       background: #fff;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      width: 220px;
-      vertical-align: top;
     }
-    .stage h3, .team h3 { margin: 0; color: #34495e; }
     button {
-      padding: 8px 15px;
+      padding: 10px 20px;
       margin-top: 10px;
       border: none;
       border-radius: 5px;
@@ -32,127 +31,66 @@
       font-weight: bold;
       cursor: pointer;
     }
-    button:hover { background: #2980b9; }
+    button:hover {
+      background: #2980b9;
+    }
     #log {
       margin-top: 30px;
       padding: 15px;
       background: #f9f9f9;
       border: 1px solid #ccc;
       text-align: left;
-      max-width: 700px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
     }
-    .success { color: green; }
-    .error { color: red; }
-    .progress-bar {
-      height: 15px;
-      background: #ccc;
-      border-radius: 5px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-    .progress {
-      height: 100%;
-      width: 0%;
-      background: #27ae60;
-      transition: width 1s;
-    }
-    .badge {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-    .completed { background: #2ecc71; color: white; }
-    .pending { background: #e67e22; color: white; }
   </style>
 </head>
 <body>
   <h1>DevOps Continuous Testing Framework</h1>
-  <p>Advanced CI/CD Pipeline Simulation + Team Dashboard</p>
+  <p>Click each stage to simulate pipeline execution</p>
 
-  <!-- Pipeline Stages -->
   <div class="stage">
     <h3>1. Developer Commit</h3>
-    <button onclick="runStage('Code committed to GitHub ✅', true)">Run</button>
+    <button onclick="runStage('Code committed to GitHub')">Run</button>
   </div>
 
   <div class="stage">
     <h3>2. GitHub Actions</h3>
-    <button onclick="runStage('GitHub Actions triggered ✅', true)">Run</button>
+    <button onclick="runStage('GitHub Actions triggered')">Run</button>
   </div>
 
   <div class="stage">
     <h3>3. Jenkins Build</h3>
-    <button onclick="runStage('Jenkins build failed ❌', false)">Run Error</button>
-    <button onclick="runStage('Jenkins build successful ✅', true)">Run Success</button>
+    <button onclick="runStage('Jenkins build successful')">Run</button>
   </div>
 
   <div class="stage">
     <h3>4. Automated Testing</h3>
-    <button onclick="runStage('Test case failed ❌', false)">Run Error</button>
-    <button onclick="runStage('All test cases passed ✅', true)">Run Success</button>
+    <button onclick="runStage('All test cases passed')">Run</button>
   </div>
 
   <div class="stage">
     <h3>5. Deployment</h3>
-    <button onclick="runStage('Deployment to Kubernetes cluster ✅', true)">Run</button>
+    <button onclick="runStage('Application deployed to Kubernetes cluster')">Run</button>
   </div>
 
   <div class="stage">
     <h3>6. Monitoring</h3>
-    <button onclick="runStage('Prometheus & Grafana monitoring active ✅', true)">Run</button>
+    <button onclick="runStage('Prometheus & Grafana monitoring active')">Run</button>
   </div>
 
-  <!-- Team Dashboard -->
-  <div class="team">
-    <h3>Team Contributions</h3>
-    <p>Prasuna – Architecture <span id="arch" class="badge pending">Pending</span></p>
-    <p>Member 2 – Algorithm <span id="algo" class="badge pending">Pending</span></p>
-    <p>Member 3 – Testing <span id="test" class="badge pending">Pending</span></p>
-    <p>Member 4 – Deployment <span id="deploy" class="badge pending">Pending</span></p>
-    <p>Member 5 – Monitoring <span id="monitor" class="badge pending">Pending</span></p>
-    <button onclick="updateTeam()">Mark All Completed</button>
-  </div>
-
-  <!-- Log + Progress -->
   <div id="log">
     <h3>Pipeline Log</h3>
     <ul id="logList"></ul>
-    <div class="progress-bar">
-      <div id="progress" class="progress"></div>
-    </div>
   </div>
 
   <script>
-    let progress = 0;
-    function runStage(message, success) {
+    function runStage(message) {
       const logList = document.getElementById("logList");
       const li = document.createElement("li");
       li.textContent = message;
-      li.className = success ? "success" : "error";
       logList.appendChild(li);
-
-      if(success) {
-        progress += 20;
-        if(progress > 100) progress = 100;
-        document.getElementById("progress").style.width = progress + "%";
-      }
-    }
-
-    function updateTeam() {
-      document.getElementById("arch").className = "badge completed";
-      document.getElementById("arch").textContent = "Completed";
-      document.getElementById("algo").className = "badge completed";
-      document.getElementById("algo").textContent = "Completed";
-      document.getElementById("test").className = "badge completed";
-      document.getElementById("test").textContent = "Completed";
-      document.getElementById("deploy").className = "badge completed";
-      document.getElementById("deploy").textContent = "Completed";
-      document.getElementById("monitor").className = "badge completed";
-      document.getElementById("monitor").textContent = "Completed";
     }
   </script>
 </body>
