@@ -4,47 +4,127 @@
   <meta charset="UTF-8">
   <title>DevOps Pipeline Dashboard</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f6f9; text-align: center; padding: 20px; }
-    h1 { color: #2c3e50; }
-    .stage, .team {
-      display: inline-block; margin: 15px; padding: 20px; border-radius: 8px;
-      background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: 220px; vertical-align: top;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1abc9c, #3498db);
+      color: #fff;
     }
+    header {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 { margin: 0; }
+    nav {
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px;
+    }
+    .stage, .team {
+      background: #fff;
+      color: #2c3e50;
+      margin: 15px;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .stage:hover, .team:hover { transform: scale(1.05); }
     button {
-      padding: 8px 15px; margin-top: 10px; border: none; border-radius: 5px;
-      background: #3498db; color: white; font-weight: bold; cursor: pointer;
+      padding: 8px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #3498db;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
     }
     button:hover { background: #2980b9; }
-    #log { margin-top: 30px; padding: 15px; background: #f9f9f9; border: 1px solid #ccc;
-      text-align: left; max-width: 700px; margin-left: auto; margin-right: auto; }
-    .success { color: green; } .error { color: red; }
-    .progress-bar { height: 15px; background: #ccc; border-radius: 5px; margin-top: 10px; overflow: hidden; }
-    .progress { height: 100%; width: 0%; background: #27ae60; transition: width 1s; }
-    .badge { display: inline-block; padding: 5px 10px; border-radius: 12px; font-size: 12px; margin-top: 5px; }
-    .completed { background: #2ecc71; color: white; } .pending { background: #e67e22; color: white; }
+    #log {
+      margin: 30px auto;
+      padding: 15px;
+      background: #fff;
+      color: #2c3e50;
+      border-radius: 10px;
+      max-width: 700px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .success { color: green; }
+    .error { color: red; }
+    .progress-bar {
+      height: 15px;
+      background: #ccc;
+      border-radius: 5px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #27ae60;
+      transition: width 1s;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .completed { background: #2ecc71; color: white; }
+    .pending { background: #e67e22; color: white; }
+    footer {
+      background: rgba(0,0,0,0.6);
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
     canvas { margin-top: 20px; }
   </style>
 </head>
 <body>
-  <h1>DevOps Continuous Testing Framework</h1>
-  <p>Mini Project: CI/CD Pipeline + Team Dashboard + Charts</p>
+  <header>
+    <h1>DevOps Continuous Testing Framework</h1>
+    <p>Mini Project: CI/CD Pipeline + Team Dashboard + Charts</p>
+  </header>
 
-  <!-- Pipeline Stages -->
-  <div class="stage"><h3>1. Developer Commit</h3><button onclick="runStage('Code committed to GitHub ✅', true)">Run</button></div>
-  <div class="stage"><h3>2. GitHub Actions</h3><button onclick="runStage('GitHub Actions triggered ✅', true)">Run</button></div>
-  <div class="stage"><h3>3. Jenkins Build</h3>
-    <button onclick="runStage('Jenkins build failed ❌', false)">Run Error</button>
-    <button onclick="runStage('Jenkins build successful ✅', true)">Run Success</button>
-  </div>
-  <div class="stage"><h3>4. Automated Testing</h3>
-    <button onclick="runStage('Test case failed ❌', false)">Run Error</button>
-    <button onclick="runStage('All test cases passed ✅', true)">Run Success</button>
-  </div>
-  <div class="stage"><h3>5. Deployment</h3><button onclick="runStage('Deployment to Kubernetes cluster ✅', true)">Run</button></div>
-  <div class="stage"><h3>6. Monitoring</h3><button onclick="runStage('Prometheus & Grafana monitoring active ✅', true)">Run</button></div>
+  <nav>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#team">Team</a>
+    <a href="#log">Logs</a>
+  </nav>
 
-  <!-- Team Dashboard -->
-  <div class="team">
+  <div class="container" id="pipeline">
+    <div class="stage"><h3>1. Developer Commit</h3><button onclick="runStage('Code committed to GitHub ✅', true)">Run</button></div>
+    <div class="stage"><h3>2. GitHub Actions</h3><button onclick="runStage('GitHub Actions triggered ✅', true)">Run</button></div>
+    <div class="stage"><h3>3. Jenkins Build</h3>
+      <button onclick="runStage('Jenkins build failed ❌', false)">Run Error</button>
+      <button onclick="runStage('Jenkins build successful ✅', true)">Run Success</button>
+    </div>
+    <div class="stage"><h3>4. Automated Testing</h3>
+      <button onclick="runStage('Test case failed ❌', false)">Run Error</button>
+      <button onclick="runStage('All test cases passed ✅', true)">Run Success</button>
+    </div>
+    <div class="stage"><h3>5. Deployment</h3><button onclick="runStage('Deployment to Kubernetes cluster ✅', true)">Run</button></div>
+    <div class="stage"><h3>6. Monitoring</h3><button onclick="runStage('Prometheus & Grafana monitoring active ✅', true)">Run</button></div>
+  </div>
+
+  <div class="team" id="team">
     <h3>Team Contributions</h3>
     <p>Prasuna – Architecture <span id="arch" class="badge pending">Pending</span></p>
     <p>Member 2 – Algorithm <span id="algo" class="badge pending">Pending</span></p>
@@ -54,15 +134,17 @@
     <button onclick="updateTeam()">Mark All Completed</button>
   </div>
 
-  <!-- Log + Progress -->
   <div id="log">
     <h3>Pipeline Log</h3>
     <ul id="logList"></ul>
     <div class="progress-bar"><div id="progress" class="progress"></div></div>
   </div>
 
-  <!-- Chart -->
   <canvas id="teamChart" width="400" height="200"></canvas>
+
+  <footer>
+    <p>© 2026 KL University | Project Coordinator: P. Anusha</p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -92,12 +174,13 @@
     function updateChart() {
       const ctx = document.getElementById('teamChart').getContext('2d');
       new Chart(ctx, {
-        type: 'pie',
+        type: 'bar',
         data: {
-          labels: ['Completed','Pending'],
+          labels: ['Prasuna','Member 2','Member 3','Member 4','Member 5'],
           datasets: [{
-            data: [5,0],
-            backgroundColor: ['#2ecc71','#e67e22']
+            label: 'Task Status',
+            data: [1,1,1,1,1],
+            backgroundColor: '#2ecc71'
           }]
         }
       });
